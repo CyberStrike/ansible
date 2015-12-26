@@ -8,7 +8,13 @@ App.messages = App.cable.subscriptions.create "MessagesChannel",
 
   received: (data) ->
     # Called when there's incoming data on the websocket for this channel
-    $('#messages').append @renderMessage(data)
+    $('#messages').append @addIncomingMessage(data)
+    console.log data
 
-  renderMessage: (data) ->
-    "<p><b>[#{data.username}]:</b> #{data.message}</p>"
+
+  addIncomingMessage: (data) ->
+    $('.chat-item-container')
+      .append "<div class='chat-item'><span class='user-avatar'><img src='http://placehold.it/50x50'></span>" +
+        "<p class='user-name'>#{ data.user }</p>" +
+         "<p class='text'>#{ data.message }</p></div>"
+      .animate {scrollTop: $(".chat-item").last().offset().top}, 500

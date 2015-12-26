@@ -1,12 +1,20 @@
 | Signed in as #{cookies.signed[:username]}.
 
-br
-
-#messages
-
-br
-
-= form_for :message, url: messages_path, remote: true, id: 'messages-form' do |f|
-  = f.label :body, 'Enter a message:'
-  = f.text_field :body
-  = f.submit 'Send message'
+.row
+  .chat-container
+    /.pull-right = @chat.user.email
+    /h4 = @chat.title
+    .chat-window
+      .chat-item-container
+        .chat-item
+          span.user-avatar
+            img src='http://placehold.it/50x50'
+          p.user-name System
+          p.text Welcome
+    .chat-input
+      .input-group
+        = form_for :message, url: messages_path, remote: true, id: 'messages-form' do |f|
+          = f.label :body, 'Enter a message:'
+          span.input-group-btn
+            = f.text_field :body, class: 'form-control', id: '#cmd'
+            = f.submit 'Send message', class:'btn btn-default'
